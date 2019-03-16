@@ -2,6 +2,7 @@ import random
 from dataclasses import dataclass
 
 from Nest import Nest
+from Pheromone import Pheromone
 from tools import create_id
 
 
@@ -55,12 +56,24 @@ class Ant:
         return deltas[direction]
 
     def next(self, environment, actions):
-        possible_movements = list(filter(
-            lambda x: not environment[x] is None,
+        movements_within_bounds = list(filter(
+            self.avoid_going_beyond_borders(environment),
             ['n', 'nw', 'w', 'sw', 's', 'se', 'e', 'ne', 'c']))
-        movement = random.choice(possible_movements)
+        movements_avoiding_pheromones = list(filter(
+            self.avoid_pheromones(environment), movements_within_bounds))
+        if movements_avoiding_pheromones:
+            movement = random.choice(movements_avoiding_pheromones)
+        else:
+            movement = random.choice(movements_within_bounds)
         x_delta, y_delta = self.direction_to_delta(movement)
-        fromx = self.posx
-        fromy = self.posy
+        fromx, fromy = self.posx, self.posy
         self.posx, self.posy = actions['move'](self.posx + x_delta, self.posy + y_delta)
-        return [AntMoved(self.id, x_delta, y_delta, self.posx, self.posy, fromx, fromy)]
+        pheromone, events = Pheromone.create(self.posx, self.posy, 'foraging')
+        actions['drop_pheromone'](pheromone)
+        return [AntMoved(self.id, x_delta, y_delta, self.posx, self.posy, fromx, fromy)] + events
+
+    def avoid_going_beyond_borders(self, environment):
+        return lambda x: not environment[x] is None
+
+    def avoid_pheromones(self, environment):
+        return lambda x: not any(map(lambda y: y.__class__.__name__ == 'Pheromone', environment[x]))

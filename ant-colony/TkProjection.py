@@ -5,6 +5,7 @@ from Ant import AntBorn, AntMoved
 from Environment import EnvironmentCreated
 from Food import FoodDropped
 from Nest import NestCreated
+from Pheromone import PheromoneDropped
 
 
 class TKProjection:
@@ -20,7 +21,8 @@ class TKProjection:
             'NestCreated': self.handle_nest_created,
             'AntBorn': self.handle_ant_born,
             'AntMoved': self.handle_ant_moved,
-            'FoodDropped': self.handle_food_dropped
+            'FoodDropped': self.handle_food_dropped,
+            'PheromoneDropped': self.handle_pheromone_dropped
         }
 
     def run(self):
@@ -59,6 +61,9 @@ class TKProjection:
 
     def handle_ant_moved(self, event: AntMoved):
         self.canvas.move(self.objects[event.id], event.x_delta, event.y_delta)
+
+    def handle_pheromone_dropped(self, event: PheromoneDropped):
+        self.objects[event.id] = self.circle(event.x, event.y, 0.1, "#050994")
 
     def circle(self, x, y, radius, color):
         return self.canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill=color, outline='')
