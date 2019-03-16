@@ -1,0 +1,6 @@
+[run]
+source = ant-colony
+[report]
+exclude_lines =
+    pragma: no cover
+    @abc.abstractmethod
