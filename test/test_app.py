@@ -1,11 +1,11 @@
 import unittest
 from multiprocessing import Queue
 
-from Ant import AntBorn
-from Environment import EnvironmentCreated
-from Nest import NestCreated
-from TkProjection import TKProjection
-from tools import create_id
+from antcolony.Ant import AntBorn
+from antcolony.Environment import EnvironmentCreated
+from antcolony.Nest import NestCreated
+from antcolony.TkProjection import TKProjection
+from antcolony.tools import create_id
 
 
 class TestApp(unittest.TestCase):

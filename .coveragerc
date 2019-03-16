@@ -1,5 +1,5 @@
 [run]
-source = ant-colony
+source = antcolony
 [report]
 exclude_lines =
     pragma: no cover

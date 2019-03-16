@@ -1,7 +1,7 @@
 import unittest
 
-from Pheromone import Pheromone, PheromoneDropped
-from tools import create_id
+from antcolony.Pheromone import Pheromone, PheromoneDropped
+from antcolony.tools import create_id
 
 
 class TestPheromone(unittest.TestCase):

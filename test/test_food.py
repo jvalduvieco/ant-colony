@@ -1,7 +1,7 @@
 import unittest
 
-from Food import Food, FoodDropped
-from tools import create_id
+from antcolony.Food import Food, FoodDropped
+from antcolony.tools import create_id
 
 
 class TestFood(unittest.TestCase):

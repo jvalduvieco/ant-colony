@@ -1,7 +1,7 @@
 import unittest
 from multiprocessing import Queue
 
-from World import World
+from antcolony.World import World
 
 
 class TestWorld(unittest.TestCase):

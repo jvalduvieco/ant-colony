@@ -1,9 +1,9 @@
 import unittest
 
-from Ant import Ant
-from Environment import Environment, EnvironmentCreated, OutOfBorder
-from Nest import Nest
-from tools import create_id
+from antcolony.Ant import Ant
+from antcolony.Environment import Environment, EnvironmentCreated, OutOfBorder
+from antcolony.Nest import Nest
+from antcolony.tools import create_id
 
 
 class TestEnvironment(unittest.TestCase):

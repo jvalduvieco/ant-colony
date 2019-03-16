@@ -1,6 +1,7 @@
 import unittest
-from Nest import Nest, NestCreated
-from tools import create_id
+
+from antcolony.Nest import Nest, NestCreated
+from antcolony.tools import create_id
 
 
 class TestNest(unittest.TestCase):

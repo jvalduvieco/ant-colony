@@ -1,8 +1,8 @@
 import unittest
 
-from Ant import Ant, AntBorn
-from Nest import Nest
-from tools import create_id
+from antcolony.Ant import Ant, AntBorn
+from antcolony.Nest import Nest
+from antcolony.tools import create_id
 
 
 class TestAnt(unittest.TestCase):
