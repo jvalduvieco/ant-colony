@@ -1,5 +1,6 @@
 import unittest
 
+from Ant import Ant
 from Environment import Environment, EnvironmentCreated, OutOfBorder
 from Nest import Nest
 from tools import create_id
@@ -41,3 +42,12 @@ class TestEnvironment(unittest.TestCase):
         self.assertEqual(
             {'ne': None, 'n': [], 'nw': [], 'w': [], 'sw': None, 's': None, 'se': None, 'e': None, 'c': []},
             environment)
+
+    def test_moving_an_object_updates_map(self):
+        nest, _ = Nest.create(50, 50, create_id())
+        self.environment.add_nest(nest)
+        ant, _ = Ant.create(nest, create_id())
+        self.environment.add_ant(ant)
+        self.assertIn(ant, self.environment.map[50, 50])
+        self.environment.move(ant, 51, 51)
+        self.assertIn(ant, self.environment.map[51, 51])

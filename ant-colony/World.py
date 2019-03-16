@@ -41,5 +41,6 @@ class World(Thread):
 
     def move_ants(self):
         for ant in self.environment.ants:
-            events = ant.next(self.environment.build_environment(ant.posx, ant.posy))
+            events = ant.next(self.environment.build_environment(ant.posx, ant.posy),
+                              {'move': lambda x, y: self.environment.move(ant, x, y)})
             self.publish_events(events)

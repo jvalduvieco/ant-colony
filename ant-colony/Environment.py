@@ -77,3 +77,12 @@ class Environment:
             'e': self.get_cell_contents(x + 1, y),
             'c': self.get_cell_contents(x, y)
         }
+
+    def move(self, an_object, x, y):
+        contents_to_be_obsoleted = self.get_cell_contents(an_object.posx, an_object.posy)
+        self.map[an_object.posx, an_object.posy] = list(
+            filter(lambda current: current.id != an_object.id, contents_to_be_obsoleted))
+        destination_contents = self.get_cell_contents(x, y)
+        destination_contents.append(an_object)
+        self.map[x, y] = destination_contents
+        return x, y

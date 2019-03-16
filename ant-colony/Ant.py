@@ -20,6 +20,8 @@ class AntMoved(object):
     y_delta: int
     x: int
     y: int
+    fromx: int
+    fromy: int
 
 
 class InvalidDirection(Exception):
@@ -52,12 +54,13 @@ class Ant:
             raise InvalidDirection(direction)
         return deltas[direction]
 
-    def next(self, environment):
+    def next(self, environment, actions):
         possible_movements = list(filter(
             lambda x: not environment[x] is None,
             ['n', 'nw', 'w', 'sw', 's', 'se', 'e', 'ne', 'c']))
         movement = random.choice(possible_movements)
         x_delta, y_delta = self.direction_to_delta(movement)
-        self.posx += x_delta
-        self.posy += y_delta
-        return [AntMoved(self.id, x_delta, y_delta, self.posx, self.posy)]
+        fromx = self.posx
+        fromy = self.posy
+        self.posx, self.posy = actions['move'](self.posx + x_delta, self.posy + y_delta)
+        return [AntMoved(self.id, x_delta, y_delta, self.posx, self.posy, fromx, fromy)]
