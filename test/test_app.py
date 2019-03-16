@@ -1,3 +1,4 @@
+import os
 import unittest
 from multiprocessing import Queue
 
@@ -9,7 +10,7 @@ from antcolony.tools import create_id
 
 
 class TestApp(unittest.TestCase):
-
+    @unittest.skipIf(os.getenv('CI', 'FALSE').upper() == "TRUE", "Not running in CI")
     def test_can_run_the_app(self):
         projection = TKProjection(Queue())
         projection.update([EnvironmentCreated(create_id(), 100, 100)])
